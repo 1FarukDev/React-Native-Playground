@@ -50,7 +50,7 @@ const Slide = ({ item }) => {
   );
 };
 
-const OnBoardingScreen = () => {
+const OnBoardingScreen = ({ navigation }) => {
   const [currentSlidesIndex, setCurrentSlidesIndex] = useState(0);
   const updateCurrentSlideIndex = (e) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
@@ -71,7 +71,7 @@ const OnBoardingScreen = () => {
     const lastSlides = slides.length - 1;
     const offset = lastSlides * width;
     ref?.current?.scrollToOffset({ offset });
-    setCurrentSlidesIndex(lastSlides); 
+    setCurrentSlidesIndex(lastSlides);
   };
 
   const ref = useRef(null);
@@ -105,33 +105,46 @@ const OnBoardingScreen = () => {
           ))}
         </View>
         <View style={{ marginBottom: 20 }}>
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              style={[
-                styles.btn,
-                {
-                  backgroundColor: "transparent",
-                  borderWidth: 1,
-                  borderColor: COLORS.white,
-                },
-              ]}
-              onPress={skipSlides}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 15,
-                  color: COLORS.white,
-                }}
+          {currentSlidesIndex == slides.length - 1 ? (
+            <View style={{ height: 50 }}>
+              <TouchableOpacity
+                style={[styles.btn]}
+                onPress={() => navigation.replace("HomeScreen")}
               >
-                SKIP
-              </Text>
-            </TouchableOpacity>
-            <View style={{ width: 15 }}></View>
-            <TouchableOpacity style={[styles.btn]} onPress={goNextSlide}>
-              <Text style={{ fontWeight: "bold", fontSize: 15 }}>NEXT</Text>
-            </TouchableOpacity>
-          </View>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  GET STARTED
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                style={[
+                  styles.btn,
+                  {
+                    backgroundColor: "transparent",
+                    borderWidth: 1,
+                    borderColor: COLORS.white,
+                  },
+                ]}
+                onPress={skipSlides}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 15,
+                    color: COLORS.white,
+                  }}
+                >
+                  SKIP
+                </Text>
+              </TouchableOpacity>
+              <View style={{ width: 15 }}></View>
+              <TouchableOpacity style={[styles.btn]} onPress={goNextSlide}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>NEXT</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     );
