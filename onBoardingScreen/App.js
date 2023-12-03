@@ -9,28 +9,43 @@ const Stack = createNativeStackNavigator();
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
-  const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
-  useEffect(async () => {
-    const appData = await AsyncStorage.getItem("isAppFirstLaunched");
-    if (appData == null) {
-      setIsAppFirstLaunched(true);
-      AsyncStorage.setItem("isAppFirstLaunched", "false");
-    } else {
-      setIsAppFirstLaunched(false);
-    }
+  const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(true);
+  // useEffect(async () => {
+  //   const appData = await AsyncStorage.getItem("isAppFirstLaunched");
+  //   if (appData == null) {
+  //     setIsAppFirstLaunched(true);
+  //     AsyncStorage.setItem("isAppFirstLaunched", "false");
+  //   } else {
+  //     setIsAppFirstLaunched(false);
+  //   }
 
-    // AsyncStorage.removeItem('isAppFirstLaunched');
+  //   AsyncStorage.removeItem("isAppFirstLaunched");
+  // }, []);
+  useEffect(() => {
+    const checkAppFirstLaunch = async () => {
+      const appData = await AsyncStorage.getItem("isAppFirstLaunched");
+      if (appData == null) {
+        setIsAppFirstLaunched(true);
+        await AsyncStorage.setItem("isAppFirstLaunched", "false");
+      } else {
+        setIsAppFirstLaunched(false);
+      }
+    };
+
+    checkAppFirstLaunch();
   }, []);
 
   return (
     isAppFirstLaunched != null && (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="onBoarding"
-            component={OnBoardingScreen}
-            options={{ headerShown: false }}
-          />
+          {isAppFirstLaunched && (
+            <Stack.Screen
+              name="onBoarding"
+              component={OnBoardingScreen}
+              options={{ headerShown: false }}
+            />
+          )}
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
