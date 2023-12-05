@@ -12,8 +12,22 @@ const DrawerScreenWrapper = ({ children }) => {
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
+        { perspective: 2000 },
         { scale: interpolate(progress.value, [0, 1], [1, 0.8], "clamp") },
+        {
+          rotateY: `${interpolate(
+            progress.value,
+            [0, 1],
+            [0, -0.2],
+            "clamp"
+          )}deg`,
+        },
+        {
+          translateX: interpolate(progress.value, [0, 1], [0, 0, -60], "clamp"),
+        },
       ],
+      borderRadius: 20,
+      overflow: "hidden",
     };
   });
 
