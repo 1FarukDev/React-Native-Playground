@@ -12,7 +12,7 @@ const DrawerScreenWrapper = ({ children }) => {
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
-        { scale: interpolate(progress.value, [0, 1], [1, 0.9], "clamp") },
+        { scale: interpolate(progress.value, [0, 1], [1, 0.8], "clamp") },
       ],
     };
   });

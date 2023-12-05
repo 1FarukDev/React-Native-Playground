@@ -11,8 +11,14 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{
+          // headerShown: false,
+          drawerType: "slide",
           overlayColor: "transparent",
+
           drawerStyle: {
+            backgroundColor: "#009688",
+          },
+          sceneContainerStyle: {
             backgroundColor: "#009688",
           },
         }}
