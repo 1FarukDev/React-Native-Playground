@@ -9,12 +9,18 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        screenOptions={{
+          overlayColor: "transparent",
+          drawerStyle: {
+            backgroundColor: "#009688",
+          },
+        }}
+        // screenOptions={{headerShown:false}}
+      >
         <Drawer.Screen name="dashboard" component={Dashboard} />
         <Drawer.Screen name="setting" component={Settings} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
-
